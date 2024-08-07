@@ -27,6 +27,7 @@ Install Flowbite and Flowbite React by running the following command in your ter
 Configure the template paths inside the tailwind.config.js file:
 
 ```
+ /** @type {import('tailwindcss').Config} */
     export default {
     content: [
         './src/**/*.{js,jsx,ts,tsx}',
@@ -43,10 +44,19 @@ Configure the template paths inside the tailwind.config.js file:
 ```
 # Install the libraries
 
-Install install react-router-dom
-
+Install  react-router-dom
 ```
- npm install react react-dom 
+ npm install react-router-dom
 ```
-
-
+Install  axios
+```
+npm install axios
+```
+Install Yup add Formik
+```
+npm install formik yup
+```
+Inatall react-modal
+```
+npm install react-modal
+```
