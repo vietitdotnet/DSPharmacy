@@ -10,9 +10,8 @@ import AboutPage from './pages/AboutPage';
 import DetailProductPage from './pages/DetailProductPage';
 import ContactPage from './pages/ContactPage';
 
-import ManagerLayout from './components/ManagerLayout';
 import ProductPage  from './mngpages/ProductPage';
-
+import LayoutManager from './components/LayoutManager'
 function App() {
   
   useEffect(() => {
@@ -30,7 +29,7 @@ function App() {
                     <Route path="/detail/:slug" element={<DetailProductPage/>} />
                 </Route>
                
-                <Route path="/manager" element={<ManagerLayout />}>
+                <Route path="/manager" element={<LayoutManager/>}>
                     <Route path="products" element={<ProductPage/>} />
                 </Route>
             </Routes>

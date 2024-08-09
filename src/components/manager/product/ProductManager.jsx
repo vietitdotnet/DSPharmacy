@@ -55,7 +55,6 @@ const ProductManager = () => {
   };
 
 
-
   const onUpdate = async (updatedProduct) => {
 
     try {
@@ -81,8 +80,10 @@ const ProductManager = () => {
     setIsModalOpen(false);
   };
 
+  
+ 
+
   return (
-    
     <div>
       <h1>Product Manager</h1>
       {notification && <div className="notification">{notification}</div>}
@@ -95,6 +96,8 @@ const ProductManager = () => {
         isCreateMode={isCreateMode}
         onSubmit={isCreateMode ? onCreate : onUpdate}
       />
+
+      
     </div>
   );
 

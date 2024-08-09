@@ -44,19 +44,22 @@ Configure the template paths inside the tailwind.config.js file:
 ```
 # Install the libraries
 
-Install  react-router-dom
 ```
  npm install react-router-dom
 ```
-Install  axios
+
 ```
 npm install axios
 ```
-Install Yup add Formik
+
 ```
 npm install formik yup
 ```
-Inatall react-modal
+
 ```
 npm install react-modal
+```
+
+```
+ npm install styled-components
 ```

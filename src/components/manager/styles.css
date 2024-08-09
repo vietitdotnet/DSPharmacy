@@ -1,0 +1,50 @@
+/* styles.css */
+.ReactModal__Overlay  {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.75);
+    z-index: 1000;
+  }
+  
+  .ReactModal__Content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    z-index: 1100;
+    width: 80%;
+    max-width: 700px;
+
+    background: rgb(227, 230, 234);
+  }
+
+  .title-from{
+    
+    font-weight: 500;
+    margin: 0px 0px 10px 0px;
+  }
+
+  .from-input{
+    margin-top: 10px;
+  }
+  /* Media query cho màn hình nhỏ hơn 768px */
+  @media (max-width: 768px) {
+    .ReactModal__Content {
+      width: 90%; /* Điều chỉnh độ rộng cho màn hình nhỏ */
+      padding: 15px; /* Giảm padding cho màn hình nhỏ */
+    }
+  }
+  
+  /* Media query cho màn hình nhỏ hơn 480px */
+  @media (max-width: 480px) {
+    .ReactModal__Content {
+      width: 95%; /* Điều chỉnh độ rộng cho màn hình rất nhỏ */
+      padding: 10px; /* Giảm padding thêm cho màn hình nhỏ */
+    }
+}
