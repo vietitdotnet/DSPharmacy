@@ -1,6 +1,6 @@
 import { Component } from "react";
 import { Link } from "react-router-dom";
-
+import Logo from '../assets/logo.png'
 export default class NavbarTop extends Component {
   render() {
     return (
@@ -11,9 +11,9 @@ export default class NavbarTop extends Component {
             className="flex items-center space-x-3 rtl:space-x-reverse"
           >
             <img
-              src="https://flowbite.com/docs/images/logo.svg"
+              src={Logo}
               className="h-8"
-              alt="Flowbite Logo"
+              alt="logo dan sinh"
             />
             <span className="self-center font-semibold whitespace-nowrap dark:text-white">
               Nhà Thuốc Dân Sinh

@@ -37,11 +37,10 @@ const ProductManager = () => {
             setCategorizations(dataCategorizations.data);
 
             setgetCategorys(dataCategorys.data);
-
-            debugger
-
         } catch (err) {
-            console.err('Error fetching products:', error);
+
+          setError('Đả xảy ra lỗi khi thiết lập yêu cầu:', error);
+            
         }
     };
 
@@ -55,6 +54,8 @@ const ProductManager = () => {
       const response = await createProduct(newProduct);
         setProducts([...products, response.data]);
         setNotification('Thêm thành công sản phẩm ! ');
+        handleCloseModal();
+        setShowAlert(true);
     } catch (err) {
       
       if (err.response) {
@@ -64,38 +65,61 @@ const ProductManager = () => {
               ? Object.values(err.response.data.errors).flat().join(' ')
               : err.response.data.message || 'Yêu cầu không được chấp nhận. Vui lòng kiểm tra đầu vào của bạn.';
             
-              setNotification(errorMessage);
+              setError(errorMessage);
             
           } else
           {
-            setNotification('Đã xảy ra lỗi. Vui lòng thử lại sau.');
+            setError('Đã xảy ra lỗi. Vui lòng thử lại sau.');
           }
       } else if (err.request) {
         
-        setNotification('Không có phản hồi từ máy chủ. Vui lòng kiểm tra kết nối của bạn.');
+        setError('Không có phản hồi từ máy chủ. Vui lòng kiểm tra kết nối của bạn.');
       } else {
         
-        setNotification('Đã xảy ra lỗi khi thiết lập yêu cầu.');
+        setError('Đã xảy ra lỗi khi thiết lập yêu cầu.');
       }
     }finally 
     {
       setLoading(false);
-      setShowAlert(true);
+      // setShowAlert(true);
     }
   };
 
   
   const onDelete = async (id) => {
     try {
+        setLoading(true);
         await deleteProduct(id);
-
-        debugger
         setProducts(products.filter(product => product.id !== id));
-
-        setNotification('Xóa thành công sản phẩm!');
-
+        handleCloseDeleteModal();
+        setNotification('Xóa thành công sản phẩm !');
+        setShowAlert(true);
     } catch (err) {
-        console.err('Error deleting product:', error);
+      
+      if (err.response) {
+          if (err.response.status === 400) {
+            // Xử lý lỗi BadRequest (400)
+            const errorMessage = err.response.data.errors
+              ? Object.values(err.response.data.errors).flat().join(' ')
+              : err.response.data.message || 'Yêu cầu không được chấp nhận. Vui lòng kiểm tra đầu vào của bạn.';
+            
+              setError(errorMessage);
+            
+          } else
+          {
+            setError('Đã xảy ra lỗi. Vui lòng thử lại sau.');
+          }
+      } else if (err.request) {
+        
+        setError('Không có phản hồi từ máy chủ. Vui lòng kiểm tra kết nối của bạn.');
+      } else {
+        
+        setError('Đã xảy ra lỗi khi thiết lập yêu cầu.');
+      }
+    }finally 
+    {
+      setLoading(false);
+      
     }
   };
 
@@ -107,7 +131,9 @@ const ProductManager = () => {
       await updateProduct(updatedProduct.id, updatedProduct);
       setProducts(products.map(product => (product.id === updatedProduct.id ? updatedProduct : product)));   
       setNotification('Cập nhật thành công sản phẩm ! ');
-      
+      handleCloseModal();
+      setShowAlert(true);
+
     } catch (err) {
       
       if (err.response) {
@@ -117,52 +143,56 @@ const ProductManager = () => {
               ? Object.values(err.response.data.errors).flat().join(' ')
               : err.response.data.message || 'Yêu cầu không được chấp nhận. Vui lòng kiểm tra đầu vào của bạn.';
             
-              setNotification(errorMessage);
-            
+              setError(errorMessage);
+              
           } else
           {
-            setNotification('Đã xảy ra lỗi. Vui lòng thử lại sau.');
+            setError('Đã xảy ra lỗi. Vui lòng thử lại sau.');
           }
       } else if (err.request) {
         
-        setNotification('Không có phản hồi từ máy chủ. Vui lòng kiểm tra kết nối của bạn.');
+        setError('Không có phản hồi từ máy chủ. Vui lòng kiểm tra kết nối của bạn.');
       } else {
         
-        setNotification('Đã xảy ra lỗi khi thiết lập yêu cầu.');
+        setError('Đã xảy ra lỗi khi thiết lập yêu cầu.');
       }
     }finally 
     {
       setLoading(false);
-      setShowAlert(true);
     }
   };
 
   const handleOpenModal = (product = null) => {
+    setShowAlert(false);
     setSelectedProduct(product);
     setIsCreateMode(product === null);
     setIsModalOpen(true);
+    setError(null)
   };
 
   const handleCloseModal = () => {
     setSelectedProduct(null);
     setIsModalOpen(false);
+    setError(null);
+    
   };
 
   const handleOpenDeleteModal = (product) => {
+    setShowAlert(false);
     setSelectedProduct(product);
     setIsDelteteModalOpen(true);
-    debugger
+    setError(null)
+    
   };
   const handleCloseDeleteModal = () => {
     setSelectedProduct(null);
     setIsDelteteModalOpen(false);
+    setError(null)
   };
-
-
-
 
   const handleCloseAlert = () => {
     setShowAlert(false); // Ẩn alert
+    setError(null)
   };
  
 
@@ -182,7 +212,6 @@ const ProductManager = () => {
           
       </Breadcrumb>
 
-
       {showAlert && 
         <div id="alert-border-1" className="flex items-center p-4 mb-4 text-blue-800 border-t-4 border-blue-300 bg-blue-50 dark:text-blue-400 dark:bg-gray-800 dark:border-blue-800" role="alert">
         <svg className="flex-shrink-0 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -199,6 +228,8 @@ const ProductManager = () => {
         </button>
         </div>
       }
+
+
       <button onClick={() => handleOpenModal()} type="button" className="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">+ Tạo mới sản phẩm</button>
 
       <ProductTable products={products} onUpdate={handleOpenModal} onDelete={handleOpenDeleteModal} />
@@ -211,6 +242,7 @@ const ProductManager = () => {
         categorizations={categorizations}
         categorys ={categorys}
         loading ={loading}
+        error ={error}
       />
       <DeleteModalProduct
         isOpen={isDeleteModalOpen}
@@ -218,7 +250,7 @@ const ProductManager = () => {
         onDelete={onDelete}
         product={selectedProduct}
         loading ={loading}
-        onSubmit ={onDelete}
+        error ={error}
       />
     </div>
   );

@@ -1,19 +1,15 @@
 import {useState, useEffect } from 'react';
 import Modal from 'react-modal';
-import DeleteProduct from './DeleteModalProduct';
 
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import '../styles.css';
 import * as Yup from 'yup';
 import PropTypes from 'prop-types'
 import load from '../../../assets/images/load.gif';
-// import { tabScrollButtonClasses } from '@mui/material';
-// import styled from 'styled-components';
-// Cấu hình để modal gắn vào root của ứng dụng
 
 Modal.setAppElement('#root');
 
-const ProductModal = ({ isOpen , onClose , product, onSubmit , categorizations , categorys , loading}) => {
+const ProductModal = ({ isOpen , onClose , product, onSubmit , categorizations , categorys , loading , error}) => {
 
   
   const validationSchema = Yup.object().shape({
@@ -112,8 +108,6 @@ const ProductModal = ({ isOpen , onClose , product, onSubmit , categorizations ,
       // e.preventDefault();
 
       
-      debugger
-
       const updatedProduct = {
         
         id : product ? product.id : undefined,
@@ -127,11 +121,11 @@ const ProductModal = ({ isOpen , onClose , product, onSubmit , categorizations ,
         idCategorization: selectedIdCategorization ||  undefined,
         description : values.description,
       };
-      debugger
+     
       // Gọi hàm cập nhật sản phẩm
      await onSubmit(updatedProduct);
       resetForm();
-      onClose();
+
     };
 
    
@@ -177,64 +171,64 @@ const ProductModal = ({ isOpen , onClose , product, onSubmit , categorizations ,
             <div className='grid  gap-2 md:grid-cols-2'>
                 <div className="relative z-0 w-full mb-5 group">
                     <Field type="text"
-                     name="name"     
-                     className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" 
-                     placeholder=" "
+                    name="name"     
+                    className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" 
+                    placeholder=" "
 
-                     />
+                    />
                     <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Tên</label>
                     <ErrorMessage className=" text-sm text-red-600 dark:text-red-500" name="name" component="p" />
                 </div>
-             
+            
                 <div className="relative z-0 w-full mb-5 group">
                     <Field type="text"
-                     name="title"     
-                     className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" 
-                     placeholder=" "
+                    name="title"     
+                    className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" 
+                    placeholder=" "
                     
-                     />
+                    />
                     <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Tiêu đề</label>
                     <ErrorMessage className=" text-sm text-red-600 dark:text-red-500" name="title" component="p" />
                 </div>
 
                 <div className="relative z-0 w-full mb-5 group">
                     <Field type="text"
-                     name="slug"     
-                     className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" 
-                     placeholder=" "
-                   
-                     />
+                    name="slug"     
+                    className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" 
+                    placeholder=" "
+                  
+                    />
                     <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Link</label>
                     <ErrorMessage className=" text-sm text-red-600 dark:text-red-500" name="slug" component="p" />
                 </div>
 
                 <div className="relative z-0 w-full mb-5 group">
                     <Field type="text"
-                     name="barcode"     
-                     className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" 
-                     placeholder=" "
-                     />
+                    name="barcode"     
+                    className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" 
+                    placeholder=" "
+                    />
                     <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Mã vạch</label>
                     <ErrorMessage className=" text-sm text-red-600 dark:text-red-500" name="barcode" component="p" />
                 </div>
 
                 <div className="relative z-0 w-full mb-5 group">
                     <Field 
-                     type="number"
-                     name="price"     
-                     className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" 
-                     placeholder=" "
-                     />
+                    type="number"
+                    name="price"     
+                    className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" 
+                    placeholder=" "
+                    />
                     <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Giá vốn</label>
                     <ErrorMessage className=" text-sm text-red-600 dark:text-red-500" name="price" component="p" />
                 </div>
             
                 <div className="relative z-0 w-full mb-5 group">
                     <Field type="number"
-                     name="retailPrice"     
-                     className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" 
-                     placeholder=" "
-                     />
+                    name="retailPrice"     
+                    className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" 
+                    placeholder=" "
+                    />
                     <label className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Giá bán</label>
                     <ErrorMessage className=" text-sm text-red-600 dark:text-red-500" name="retailPrice" component="p" />
                 </div>
@@ -249,7 +243,7 @@ const ProductModal = ({ isOpen , onClose , product, onSubmit , categorizations ,
                     {categorys.map(option => (
                           <option key={option.id} value={option.id} label={option.name}/>      
                     ))}
-                 
+                
                   </Field>
                   <ErrorMessage className="text-sm text-red-600 dark:text-red-500" component="p"  name="category"/>
               </div>
@@ -265,30 +259,35 @@ const ProductModal = ({ isOpen , onClose , product, onSubmit , categorizations ,
                     {categorizations.map(option => (
                           <option key={option.id} value={option.id} label={option.name}/>      
                     ))}
-                 
+                
                   </Field>
                   <ErrorMessage className="text-sm text-red-600 dark:text-red-500" component="p"  name="categorization"/>
               </div>
-                <div className='from-input'>                 
-                  <label className="block text-sm font-medium text-gray-900 dark:text-white">Mô tả</label>
-                  <Field 
-                  as="textarea" rows="4" 
-                  name = "description"             
-                  className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Mô tả tối đa là 135 ký tự ..."
-                  
-                  />
-                <ErrorMessage className=" text-sm text-red-600 dark:text-red-500" name="description" component="p" />
               
-           
-              </div>
-          </div>
-               
-          <button className="mt-5 mr-1 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="submit" disabled={isSubmitting} >Cập nhật</button>
-                  <button className=' text-white bg-red-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800' type="button" onClick={onClose}>
-                    Đóng
-          </button>
-          
-          {loading && <img className='loadding-update-icon' src={load} alt="Loading" />}
+            </div>
+
+            <div className="relative z-0 w-full mt-5 mb-5 group">                 
+              <label className="block text-sm  text-gray-900 dark:text-white">Mô tả</label>
+              <Field 
+              as="textarea" rows="3" 
+              name = "description"             
+              className=" p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Mô tả tối đa là 135 ký tự ..."
+              
+              />
+            <ErrorMessage className=" text-sm text-red-600 dark:text-red-500" name="description" component="p" />
+
+            </div>
+        
+            <div className="flex mt-5">
+              <button className="mr-1 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="submit" disabled={isSubmitting} >Cập nhật</button>
+              <button className='mr-1 text-white bg-red-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800' type="button" onClick={onClose}>
+                  Đóng
+              </button>
+              
+              <p>{loading && <img className='loadding-update-icon' src={load} alt="Loading" />}</p>
+              
+            </div>
+                {error && <p className='text-red-600 dark:text-red-500'>{error}</p>}
         </Form>
         )}
       </Formik>

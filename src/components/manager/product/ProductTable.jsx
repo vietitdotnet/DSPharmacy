@@ -1,3 +1,4 @@
+import { Button } from "flowbite-react";
 
 const ProductTable = ({ products , onUpdate , onDelete }) => {
 
@@ -38,7 +39,7 @@ const ProductTable = ({ products , onUpdate , onDelete }) => {
                         <td className="px-6 py-4">
                             <button className=" font-medium text-blue-600 dark:text-blue-500 mr-3" onClick={() => onUpdate(product)}>Sửa</button>
                             
-                            <a onClick={() => onDelete(product)} className=" font-medium text-blue-600 dark:text-blue-500 ">Xóa</a>
+                            <button onClick={() => onDelete(product)} className=" font-medium text-blue-600 dark:text-blue-500 ">Xóa</button>
                         </td>
                     </tr>
                 ))}
