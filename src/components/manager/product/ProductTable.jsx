@@ -2,10 +2,10 @@
 const ProductTable = ({ products , onUpdate , onDelete }) => {
 
   
-  const handleDelete = async (id) => {
-    debugger
-    onDelete(id, products);
-  };
+//   const handleDelete = async (id) => {
+    
+//     onDelete(id, products);
+//   };
 
   return (
    
@@ -38,7 +38,7 @@ const ProductTable = ({ products , onUpdate , onDelete }) => {
                         <td className="px-6 py-4">
                             <button className=" font-medium text-blue-600 dark:text-blue-500 mr-3" onClick={() => onUpdate(product)}>Sửa</button>
                             
-                            <a onClick={() => handleDelete(product.id)} className=" font-medium text-blue-600 dark:text-blue-500 ">Xóa</a>
+                            <a onClick={() => onDelete(product)} className=" font-medium text-blue-600 dark:text-blue-500 ">Xóa</a>
                         </td>
                     </tr>
                 ))}

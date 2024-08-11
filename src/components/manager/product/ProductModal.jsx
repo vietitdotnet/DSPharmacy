@@ -1,5 +1,7 @@
 import {useState, useEffect } from 'react';
 import Modal from 'react-modal';
+import DeleteProduct from './DeleteModalProduct';
+
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import '../styles.css';
 import * as Yup from 'yup';
@@ -11,7 +13,7 @@ import load from '../../../assets/images/load.gif';
 
 Modal.setAppElement('#root');
 
-const ProductModal = ({ isOpen, onClose, product, onSubmit, categorizations , categorys , loading}) => {
+const ProductModal = ({ isOpen , onClose , product, onSubmit , categorizations , categorys , loading}) => {
 
   
   const validationSchema = Yup.object().shape({
@@ -267,8 +269,6 @@ const ProductModal = ({ isOpen, onClose, product, onSubmit, categorizations , ca
                   </Field>
                   <ErrorMessage className="text-sm text-red-600 dark:text-red-500" component="p"  name="categorization"/>
               </div>
-
-
                 <div className='from-input'>                 
                   <label className="block text-sm font-medium text-gray-900 dark:text-white">Mô tả</label>
                   <Field 

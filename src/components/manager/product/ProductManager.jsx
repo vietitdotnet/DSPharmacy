@@ -1,8 +1,11 @@
 import { useState, useEffect } from 'react';
 import ProductTable from './ProductTable';
 import ProductModal from './ProductModal';
+import DeleteModalProduct from './DeleteModalProduct';
 import {  getProducts, createProduct, updateProduct , deleteProduct , getCategorizations , getCategorys} from "../API";
 import { Link } from 'react-router-dom';
+
+
 "use client";
 
 import { Breadcrumb } from "flowbite-react";
@@ -15,6 +18,7 @@ const ProductManager = () => {
   const [notification, setNotification] = useState('');
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDelteteModalOpen] = useState(false);
   const [isCreateMode, setIsCreateMode] = useState(true);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -81,13 +85,14 @@ const ProductManager = () => {
   };
 
   
-  const onDelete = async (id , products) => {
+  const onDelete = async (id) => {
     try {
         await deleteProduct(id);
 
+        debugger
         setProducts(products.filter(product => product.id !== id));
 
-        setNotification('Product Delete successfully!');
+        setNotification('Xóa thành công sản phẩm!');
 
     } catch (err) {
         console.err('Error deleting product:', error);
@@ -143,6 +148,19 @@ const ProductManager = () => {
     setIsModalOpen(false);
   };
 
+  const handleOpenDeleteModal = (product) => {
+    setSelectedProduct(product);
+    setIsDelteteModalOpen(true);
+    debugger
+  };
+  const handleCloseDeleteModal = () => {
+    setSelectedProduct(null);
+    setIsDelteteModalOpen(false);
+  };
+
+
+
+
   const handleCloseAlert = () => {
     setShowAlert(false); // Ẩn alert
   };
@@ -158,11 +176,12 @@ const ProductManager = () => {
           </Breadcrumb.Item>
           <Breadcrumb.Item>
           <Link to="/manager/products">
-             Sản Phẩm
+             Sản phẩm
             </Link>
           </Breadcrumb.Item>
           
       </Breadcrumb>
+
 
       {showAlert && 
         <div id="alert-border-1" className="flex items-center p-4 mb-4 text-blue-800 border-t-4 border-blue-300 bg-blue-50 dark:text-blue-400 dark:bg-gray-800 dark:border-blue-800" role="alert">
@@ -182,7 +201,7 @@ const ProductManager = () => {
       }
       <button onClick={() => handleOpenModal()} type="button" className="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">+ Tạo mới sản phẩm</button>
 
-      <ProductTable products={products} onUpdate={handleOpenModal} onDelete={onDelete} />
+      <ProductTable products={products} onUpdate={handleOpenModal} onDelete={handleOpenDeleteModal} />
       <ProductModal
         isOpen={isModalOpen}
         onClose={handleCloseModal}
@@ -192,6 +211,14 @@ const ProductManager = () => {
         categorizations={categorizations}
         categorys ={categorys}
         loading ={loading}
+      />
+      <DeleteModalProduct
+        isOpen={isDeleteModalOpen}
+        onClose={handleCloseDeleteModal}
+        onDelete={onDelete}
+        product={selectedProduct}
+        loading ={loading}
+        onSubmit ={onDelete}
       />
     </div>
   );
