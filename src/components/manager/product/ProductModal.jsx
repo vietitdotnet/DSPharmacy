@@ -287,7 +287,7 @@ const ProductModal = ({ isOpen , onClose , product, onSubmit , categorizations ,
               <p>{loading && <img className='loadding-update-icon' src={load} alt="Loading" />}</p>
               
             </div>
-                {error && <p className='text-red-600 dark:text-red-500'>{error}</p>}
+            {error && <p className='text-red-600 dark:text-red-500 mt-1'>{error}</p>}
         </Form>
         )}
       </Formik>

@@ -7,11 +7,12 @@ import load from '../../../assets/images/load.gif';
 // loading ={loading}
 // onSubmit ={onDelete}
 
-function DeleteModalProduct({isOpen , onClose , onDelete, product, loading, error}) {
+function DeleteModalImage({isOpen , onClose , imageId, onDelete, loading, error}) {
     
  
-    const handleDelete = async () => {   
-      await onDelete(product.id);
+    const handleDelete = async () => {  
+        debugger 
+      await onDelete(imageId);
     };
 
 
@@ -23,7 +24,7 @@ function DeleteModalProduct({isOpen , onClose , onDelete, product, loading, erro
           <div className="text-center">
             <HiOutlineExclamationCircle className="mx-auto mb-4 h-14 w-14 text-gray-400 dark:text-gray-200" />
             <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-               Xác nhận xóa sản phẩm <p className="text-red-500" >{ product && product.name}</p>
+               Xác nhận xóa hình ảnh
             </h3>
             <div className="flex justify-center gap-4">
               <Button color="failure" onClick={handleDelete}>
@@ -42,16 +43,16 @@ function DeleteModalProduct({isOpen , onClose , onDelete, product, loading, erro
   )
 }
 
-DeleteModalProduct.propTypes = {
+DeleteModalImage.propTypes = {
 
   isOpen: PropTypes.bool.isRequired,
   onClose  :PropTypes.func,
-  product : PropTypes.object,
+  imageId : PropTypes.number,
   onSubmit :  PropTypes.func,
   onDelete :  PropTypes.func,
   loading: PropTypes.bool.isRequired,
   error : PropTypes.string
 }
 
-export default DeleteModalProduct
+export default DeleteModalImage
 

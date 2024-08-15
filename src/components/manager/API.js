@@ -6,6 +6,10 @@ const API_Categorization = 'http://localhost:5193/api/managerapi/categorization'
 
 const API_Category = 'http://localhost:5193/api/managerapi/category'; // Địa chỉ của API Category
 
+
+const API_ImageProduct = 'http://localhost:5193/api/managerapi/productimages'; // Địa chỉ của API image product
+
+
 const headerProducts = {
     'Content-Type': 'application/json',
 }
@@ -28,3 +32,13 @@ export const getCategorizations = () => axios.get(API_Categorization);
 
 export const getCategorys = () => axios.get(API_Category);
 
+export const getImageProducts = (productId) => axios.get(`${API_ImageProduct}/${productId}`);
+
+export const createImageProduct = ( productId, formData) => axios.post(`${API_ImageProduct}/${productId}`, formData, 
+{  
+  headers: {
+    'Content-Type': 'multipart/form-data',
+  },
+});
+
+export const deleteImage = (productId , id) => axios.delete(`${API_ImageProduct}/${productId}/${id}`);

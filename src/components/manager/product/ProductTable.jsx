@@ -1,5 +1,5 @@
-import { Button } from "flowbite-react";
-
+import { Link} from 'react-router-dom';
+import PropTypes from 'prop-types'
 const ProductTable = ({ products , onUpdate , onDelete }) => {
 
   
@@ -18,7 +18,7 @@ const ProductTable = ({ products , onUpdate , onDelete }) => {
                     Tên
                     </th>
                     <th scope="col" className="px-6 py-3">
-                        Giá
+                        Ảnh
                     </th>
                     
                     <th scope="col" className="px-6 py-3">
@@ -33,7 +33,8 @@ const ProductTable = ({ products , onUpdate , onDelete }) => {
                             {product.name}
                         </th>
                         <td className="px-6 py-4">
-                            {product.price}
+                            <Link to={`${"/manager/"}${product.id}${"/images"}`}>Cập nhât</Link>
+                            
                         </td>
                     
                         <td className="px-6 py-4">
@@ -50,5 +51,19 @@ const ProductTable = ({ products , onUpdate , onDelete }) => {
     
   );
 };
+
+ProductTable.propTypes = {
+    onUpdate: PropTypes.bool.isRequired,
+    onDelete  :PropTypes.func,
+
+    products: PropTypes.arrayOf(PropTypes.shape({ // Kiểu mảng của các đối tượng
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired
+      
+    })),
+  
+  };
+  
+  
 
 export default ProductTable;

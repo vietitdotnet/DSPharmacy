@@ -5,9 +5,6 @@ import DeleteModalProduct from './DeleteModalProduct';
 import {  getProducts, createProduct, updateProduct , deleteProduct , getCategorizations , getCategorys} from "../API";
 import { Link } from 'react-router-dom';
 
-
-"use client";
-
 import { Breadcrumb } from "flowbite-react";
 import { HiHome } from "react-icons/hi";
 
