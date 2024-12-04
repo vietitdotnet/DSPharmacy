@@ -10,8 +10,11 @@ import AboutPage from './pages/AboutPage';
 import DetailProductPage from './pages/DetailProductPage';
 import ContactPage from './pages/ContactPage';
 
+
 import ProductPage  from './mngpages/ProductPage';
+import ProductImagePage from "./mngpages/ProductImagePage";
 import LayoutManager from './components/LayoutManager'
+
 function App() {
   
   useEffect(() => {
@@ -31,6 +34,7 @@ function App() {
                
                 <Route path="/manager" element={<LayoutManager/>}>
                     <Route path="products" element={<ProductPage/>} />
+                    <Route path=":productId/images" element={<ProductImagePage/>} />
                 </Route>
             </Routes>
         </Router>
